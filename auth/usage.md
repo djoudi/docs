@@ -40,15 +40,22 @@ Logging a user into your application is simple using the **attempt** method on t
 
 If the user's credentials are valid, the user ID will be stored in the session and the user will be considered "logged in" on subsequent requests to your application.
 
+If you would like to keep a user logged in even after they close their browser, you can pass an optional third parameter of **true** to the **attempt** method.
+
 You probably noticed this method name corresponds to the **attempt** function you [configured earlier](/docs/auth/config#attempt). Each time you call the **attempt** method on the **Auth** class, the **attempt** function in the configuration file will be called to check the user's credentials.
 
 > **Note:** To provide more flexiblity when working with third-party authentication providers, you are not required to pass a password into the **attempt** method.
 
-To determine if the user of your application is logged in, call the **check** method:
+To determine if the user of your application is logged in, call either the **check** or **guest** methods:
 
 	if (Auth::check())
 	{
 	     return "You're logged in!";
+	}
+	
+	if (Auth::guest())
+	{
+		return "You're not logged in!";
 	}
 
 Use the **login** method to login a user without checking their credentials, such as after a user first registers to use your application. Just pass your user object or the user's ID:
