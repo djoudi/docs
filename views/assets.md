@@ -55,7 +55,7 @@ To improve response time, it is common to place JavaScript at the bottom of HTML
 
 	Asset::container('footer')->add('example', 'js/example.js');
 
-#### Dumping that assets from a given container:
+#### Dumping that asset from a given container:
 
 	echo Asset::container('footer')->scripts();
 
