@@ -114,6 +114,12 @@ Sometimes you may wish to directly include a view from within another view. You 
 	<div class="content">
 		<?php echo render('user.profile'); ?>
 	</div>
+	
+#### Share a value everywhere in your application's views
+
+	<div class="content">
+		<?php View::share('key', 'value'); ?>
+	</div>
 
 It is also very common to have a partial view that is responsible for display an instance of data in a list. For example, you may create a partial view responsible for displaying the details about a single order. Then, for example, you may loop through an array of orders, rendering the partial view for each order. This is made simpler using the **render_each** helper:
 
