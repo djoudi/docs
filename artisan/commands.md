@@ -99,4 +99,4 @@ Generate an application key  |  `php artisan key:generate`
 Description  | Command
 ------------- | -------------
 Setting the Laravel environment  |  `php artisan foo --env=local`
-Setting the default database connection  |  `php artisan foo --database=sqlitename`
+Setting the default database connection  |  `php artisan foo --db=sqlitename`

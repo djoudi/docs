@@ -10,7 +10,7 @@
 <a name="the-basics"></a>
 ## The Basics
 
-Laravel's command-line tool is called Artisan. Artisan can be used to run "tasks" such as migrations, cronjobs, unit-tests, or anything that want. 
+Laravel's command-line tool is called Artisan. Artisan can be used to run "tasks" such as migrations, cronjobs, unit-tests, or anything that want.
 
 <a name="creating-tasks"></a>
 ## Creating & Running Tasks
@@ -97,4 +97,4 @@ To run your task just use the usual Laravel double-colon syntax to indicate the 
 
 #### Setting the default database connection:
 
-	php artisan foo --database=sqlite
+	php artisan foo --db=sqlite
