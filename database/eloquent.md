@@ -303,6 +303,12 @@ However, you may often only want to insert a new record into the intermediate ta
 
 	$user->roles()->attach($role_id);
 
+If you ever find yourself wanting to add additional data into the intermediate table during an **insert** or **attach** you can do so very easily by passing an array of data as the second parameter for both:
+
+	$post->comments()->insert($comment, array('visible' => 1));
+
+	$user->roles()->attach($role_id, array('active' => 1));
+
 <a name="intermediate-tables"></a>
 ## Working With Intermediate Tables
 
