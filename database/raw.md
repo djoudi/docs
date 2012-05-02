@@ -43,6 +43,8 @@ Laravel provides a few other methods to make querying your database simple. Here
 #### Running a SELECT query and getting the value of a single column:
 
 	$email = DB::only('select email from users where id = 1');
+	
+> **Note:** If more than one record matches for **DB::only()**, just the first result will be returned.
 
 <a name="pdo-connections"></a>
 ## PDO Connections

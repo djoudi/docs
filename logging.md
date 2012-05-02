@@ -9,11 +9,11 @@
 <a name="basic-configuration"></a>
 ## Basic Configuration
 
-All of the configuration options regarding errors and logging live in the **application/config/errors.php** file. Let's jump right in.
+All of the configuration options regarding errors and logging live in the **application/config/error.php** file. Let's jump right in.
 
 ### Ignored Errors
 
-The **ignore** option contains an array of error levels that should be ignored by Laravel. By "ignored", we mean that we won't stop execution of the script on these errors. However, they will be logged when logging is enabled.
+The **ignore** option contains an array of [PHP error levels](http://php.net/manual/en/errorfunc.constants.php) that should be ignored by Laravel. By "ignored", we mean that we won't stop execution of the script on these errors. However, they will be logged when logging is enabled.
 
 ### Error Detail
 
