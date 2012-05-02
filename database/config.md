@@ -5,6 +5,7 @@
 - [Quick Start Using SQLite](#quick)
 - [Configuring Other Databases](#server)
 - [Setting The Default Connection Name](#default)
+- [Configuration By Environment](#environment)
 
 Laravel supports the following databases out of the box:
 
@@ -44,3 +45,15 @@ As you have probably noticed, each database connection defined in the **applicat
 	'default' => 'sqlite';
 
 The default connection will always be used by the [fluent query builder](/docs/database/fluent). If you need to change the default connection during a request, use the **Config::set** method.
+
+<a name="environment"></a>
+## Configuration By Environment
+
+It's common to have database configuration files for each environment your app will run in. Set your [environment variable](/docs/install#environments) and then put a database config file in the appropriate location. For example on a local development machine you might have your environment set to **local**. You would then have two database.php files:
+
+	application/config/database.php //default (production) config
+	application/config/local/database.php //local development config
+
+*Further Reading:*
+
+- *[Environments](/docs/install#environments)*
