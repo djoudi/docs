@@ -9,7 +9,7 @@
 - [Inserting & Updating Models](#save)
 - [Relationships](#relationships)
 - [Inserting Related Models](#inserting-related-models)
-- [Working With Intermediate Tables](#intermediate-tables)
+- [Working With Pivot Tables](#pivot-tables)
 - [Eager Loading](#eager)
 - [Constraining Eager Loads](#constraining-eager-loads)
 - [Setter & Getter Methods](#getter-and-setter-methods)
@@ -229,7 +229,9 @@ You may be wondering: _If the dynamic properties return the relationship and req
 <a name="many-to-many"></a>
 ### Many-To-Many
 
-Many-to-many relationships are the most complicated of the three relationships. But don't worry, you can do this. For example, assume a User has many Roles, but a Role can also belong to many Users. Three database tables must be created to accomplish this relationship: a **users** table, a **roles** table, and a **role_user** table. The structure for each table looks like this:
+Many-to-many relationships are the most complicated of the three relationships. In this example we have a User model which can have many Roles. But, a Role can also belong to many Users. Three database tables must be created to accomplish this relationship: a **users** table, a **roles** table, and a **role_user** table. We call the **role_user** table the "pivot table." 
+
+The structure for each table looks like this:
 
 **Users:**
 
@@ -265,7 +267,7 @@ Or, as usual, you may retrieve the relationship through the dynamic roles proper
 
 	$roles = User::find(1)->roles;
 
-As you may have noticed, the default name of the intermediate table is the singular names of the two related models arranged alphabetically and concatenated by an underscore. However, you are free to specify your own table name. Simply pass the table name in the second parameter to the **has\_and\_belongs\_to\_many** method:
+As you may have noticed, the default name of the pivot table is the singular names of the two related models arranged alphabetically and concatenated by an underscore. However, you are free to specify your own table name. Simply pass the table name in the second parameter to the **has\_and\_belongs\_to\_many** method:
 
 	class User extends Eloquent {
 
@@ -289,7 +291,7 @@ Let's assume you have a **Post** model that has many comments. Often you may wan
 
 When inserting related models through their parent model, the foreign key will automatically be set. So, in this case, the "post_id" was automatically set to "1" on the newly inserted comment.
 
-This is even more helpful when working with many-to-many relationships. For example, consider a **User** model that has many roles. Likewise, the **Role** model may have many users. So, the intermediate table for this relationship has "user_id" and "role_id" columns. Now, let's insert a new Role for a User:
+This is even more helpful when working with many-to-many relationships. For example, consider a **User** model that has many roles. Likewise, the **Role** model may have many users. So, the pivot table for this relationship has "user_id" and "role_id" columns. Now, let's insert a new Role for a User:
 
 	$role = new Role(array('title' => 'Admin'));
 
@@ -297,22 +299,18 @@ This is even more helpful when working with many-to-many relationships. For exam
 
 	$user->roles()->insert($role);
 
-Now, when the Role is inserted, not only is the Role inserted into the "roles" table, but a record in the intermediate table is also inserted for you. It couldn't be easier!
+Now, when the Role is inserted, not only is the Role inserted into the "roles" table, but a record in the pivot table is also inserted for you. It couldn't be easier!
 
-However, you may often only want to insert a new record into the intermediate table. For example, perhaps the role you wish to attach to the user already exists. Just use the attach method:
+However, you may often only want to insert a new record into the pivot table. For example, perhaps the role you wish to attach to the user already exists. Just use the attach method:
 
 	$user->roles()->attach($role_id);
 
-If you ever find yourself wanting to add additional data into the intermediate table during an **insert** or **attach** you can do so very easily by passing an array of data as the second parameter for both:
+<a name="pivot-tables"></a>
+## Working With Pivot Tables
 
-	$post->comments()->insert($comment, array('visible' => 1));
+As your probably know, many-to-many relationships require the presence of an intermediate table. In one example case we have a **User** model that has many roles. And, likewise, a **Role** model that has many users. So the intermediate table has "user_id" and "role_id" columns. 
 
-	$user->roles()->attach($role_id, array('active' => 1));
-
-<a name="intermediate-tables"></a>
-## Working With Intermediate Tables
-
-As your probably know, many-to-many relationships require the presence of an intermediate table. Eloquent makes it a breeze to maintain this table. For example, let's assume we have a **User** model that has many roles. And, likewise, a **Role** model that has many users. So the intermediate table has "user_id" and "role_id" columns. We can access the pivot table for the relationship like so:
+These tables are called **pivot tables**. We can access the pivot table for the relationship like so:
 
 	$user = User::find(1);
 
@@ -325,7 +323,7 @@ Once we have an instance of the pivot table, we can use it just like any other E
 		//
 	}
 
-You may also access the specific intermediate table row associated with a given record. For example:
+You may also access a specific row in the pivot table that is associated with a given record. For example:
 
 	$user = User::find(1);
 
@@ -342,7 +340,13 @@ Sometimes you may wish to remove all of the record from the intermediate table f
 
 	$user->roles()->delete();
 
-Note that this does not delete the roles from the "roles" table, but only removes the records from the intermediate table which associated the roles with the given user.
+Note that this does not delete the roles from the "roles" table, but only removes the records from the pivot table which associated the roles with the given user.
+
+If you ever find yourself wanting to add additional data into the pivot table during an **insert** or **attach** you can do so by passing an array of data as the second parameter for both:
+
+	$post->comments()->insert($comment, array('visible' => 1));
+
+	$user->roles()->attach($role_id, array('active' => 1));
 
 <a name="eager"></a>
 ## Eager Loading
