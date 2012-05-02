@@ -40,7 +40,10 @@ Logging a user into your application is simple using the **attempt** method on t
 
 If the user's credentials are valid, the user ID will be stored in the session and the user will be considered "logged in" on subsequent requests to your application.
 
-If you would like to keep a user logged in even after they close their browser, you can pass an optional third parameter of **true** to the **attempt** method.
+By default a user's auth session will expire when their browser has been closed. You can enable Laravel's "remember me" functionality by passing **true** as the third parameter to the **attempt** method.
+
+	if (Auth::attempt('example@gmail.com', 'password', true))
+		...
 
 You probably noticed this method name corresponds to the **attempt** function you [configured earlier](/docs/auth/config#attempt). Each time you call the **attempt** method on the **Auth** class, the **attempt** function in the configuration file will be called to check the user's credentials.
 
