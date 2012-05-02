@@ -91,6 +91,10 @@ Typically, a route or controller will request data from a model that the view ne
 
 	$view['name']  = 'James';
 	$view['email'] = 'example@example.com';
+	
+#### Share a value with all views into your application:
+
+	View::share('key', 'value');
 
 <a name="nesting-views"></a>
 ## Nesting Views
