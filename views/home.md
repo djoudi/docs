@@ -230,7 +230,7 @@ You can access your message from the view with the Session get method:
 <a name="errors"></a>
 ## Errors
 
-To generating proper error responses simply specify the response code that you wish to return. The corresponding view stored in **views/error** will automatically be returned.
+To generate proper error responses simply specify the response code that you wish to return. The corresponding view stored in **views/error** will automatically be returned.
 
 #### Generating a 404 error response:
 
