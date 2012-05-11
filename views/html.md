@@ -55,7 +55,7 @@ For example, the < symbol should be converted to its entity representation. Conv
 
 #### Generating a link that should use HTTPS:
 
-	echo HTML::secure_link('user/profile', 'User Profile');
+	echo HTML::link_to_secure('user/profile', 'User Profile');
 
 #### Generating a link and specifying extra HTML attributes:
 
